@@ -1,1 +1,0 @@
-var Bob = "bnb";
