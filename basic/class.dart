@@ -1,14 +1,18 @@
-class Strong {
+mixin class Strong {
   final double strengthLevel = 150000.99;
 }
 
-class Quick {
+mixin class Quick {
   void runQuick() {
     print("I am runnig");
   }
 }
 
-abstract class Human {
+mixin class Tall {
+  final double height = 1.99;
+}
+
+abstract class Human with Tall {
   final String name;
 
   Human(this.name);
@@ -24,7 +28,7 @@ abstract class Human {
 
 enum Team { red, blue, green }
 
-class Player extends Human {
+class Player extends Human with Strong, Quick, Tall {
   late int xp, age;
   late final Team team;
 
@@ -84,6 +88,9 @@ List<Player> classFunction() {
   )
     ..walk()
     ..running();
+
+  bluePlayer.runQuick();
+  bluePlayer.strengthLevel;
 
   var potato = bluePlayer
     ..xp -= 3000
