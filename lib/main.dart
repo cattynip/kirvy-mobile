@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,6 +16,7 @@ class App extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
                 height: 80,
@@ -29,11 +31,11 @@ class App extends StatelessWidget {
                         "Hey, Cattynip",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 28,
-                          fontWeight: FontWeight.w800,
+                          fontSize: 27,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
-                      const SizedBox(height: 5),
+                      const SizedBox(height: 4),
                       Text(
                         "Welcome back",
                         style: TextStyle(
@@ -43,6 +45,76 @@ class App extends StatelessWidget {
                       ),
                     ],
                   ),
+                ],
+              ),
+              const SizedBox(
+                height: 70,
+              ),
+              Text(
+                "Total Balanace",
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.8),
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              const Text(
+                "\$5 194 382",
+                style: TextStyle(
+                  fontSize: 45,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(
+                height: 13,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFF1B33B),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(45),
+                      ),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 25,
+                        horizontal: 60,
+                      ),
+                      child: Text(
+                        "Transfer",
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: Color(0xFF1F2123),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(45),
+                      ),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 25,
+                        horizontal: 60,
+                      ),
+                      child: Text(
+                        "Request",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ],
