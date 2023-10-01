@@ -1,3 +1,6 @@
+import 'dart:ffi';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -9,7 +12,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  int totalSeconds = 1500;
+  static const int defaultInitialSeconds = 1500;
+  int totalSeconds = defaultInitialSeconds;
+  int totalPomodoros = 0;
   bool isRunning = false;
   late Timer timer;
 
@@ -30,9 +35,26 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   void onTick(Timer timer) {
-    setState(() {
-      totalSeconds -= 1;
-    });
+    if (totalSeconds == 0) {
+      setState(() {
+        totalSeconds = defaultInitialSeconds;
+        totalPomodoros += 1;
+      });
+
+      onStopPressed();
+    } else {
+      setState(() {
+        totalSeconds -= 1;
+      });
+    }
+  }
+
+  String formatTime() {
+    return Duration(seconds: totalSeconds)
+        .toString()
+        .split(".")
+        .first
+        .substring(2);
   }
 
   @override
@@ -47,7 +69,7 @@ class HomeScreenState extends State<HomeScreen> {
             child: Container(
               alignment: Alignment.bottomCenter,
               child: Text(
-                "$totalSeconds",
+                formatTime(),
                 style: TextStyle(
                   color: Theme.of(context).cardColor,
                   fontSize: 90,
@@ -96,7 +118,7 @@ class HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         Text(
-                          "0",
+                          "$totalPomodoros",
                           style: TextStyle(
                             fontSize: 50,
                             fontWeight: FontWeight.w600,
