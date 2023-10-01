@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:webtoonapp/widgets/button.dart';
-import 'package:webtoonapp/widgets/currency_card.dart';
 
 void main() {
   runApp(const App());
@@ -25,34 +23,42 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        textTheme: const TextTheme(
+          titleLarge: TextStyle(
+            color: Colors.red,
+          ),
+        ),
+      ),
       home: Scaffold(
         backgroundColor: const Color(0xFFF4EDDB),
         body: Container(
-          child: Center(
+          child: const Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  "Click Count",
-                  style: TextStyle(
-                    fontSize: 30,
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    for (var n in numbers) Text("$n"),
-                  ],
-                ),
-                IconButton(
-                  onPressed: onClicked,
-                  icon: const Icon(Icons.add),
-                  iconSize: 40,
-                ),
+                MyLargeTitle(),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class MyLargeTitle extends StatelessWidget {
+  const MyLargeTitle({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      "My Large Title",
+      style: TextStyle(
+        fontSize: 30,
+        color: Theme.of(context).textTheme.titleLarge?.color,
       ),
     );
   }
