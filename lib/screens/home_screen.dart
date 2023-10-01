@@ -1,6 +1,3 @@
-import 'dart:ffi';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -32,6 +29,11 @@ class HomeScreenState extends State<HomeScreen> {
     setState(() {
       isRunning = false;
     });
+  }
+
+  void onRestartPressed() {
+    onStopPressed();
+    totalSeconds = defaultInitialSeconds;
   }
 
   void onTick(Timer timer) {
@@ -81,15 +83,44 @@ class HomeScreenState extends State<HomeScreen> {
           Flexible(
             flex: 2,
             child: Center(
-              child: IconButton(
-                onPressed: isRunning ? onStopPressed : onStartPressed,
-                icon: Icon(
-                  isRunning
-                      ? Icons.stop_circle_outlined
-                      : Icons.play_circle_outline,
-                ),
-                iconSize: 120,
-                color: Theme.of(context).cardColor,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: isRunning ? onStopPressed : onStartPressed,
+                    icon: Icon(
+                      isRunning
+                          ? Icons.stop_circle_outlined
+                          : Icons.play_circle_outline,
+                    ),
+                    iconSize: 120,
+                    color: Theme.of(context).cardColor,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  GestureDetector(
+                    onTap: onRestartPressed,
+                    child: Container(
+                      padding: const EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                          color: Theme.of(context).cardColor,
+                          width: 2.4,
+                        ),
+                      ),
+                      child: Text(
+                        "Restart",
+                        style: TextStyle(
+                          color: Theme.of(context).cardColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
           ),
