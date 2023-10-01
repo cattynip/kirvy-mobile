@@ -1,5 +1,5 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:webtoonapp/widgets/button.dart';
 
 void main() {
   runApp(const App());
@@ -71,50 +71,19 @@ class App extends StatelessWidget {
               const SizedBox(
                 height: 13,
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFF1B33B),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(45),
-                      ),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 25,
-                        horizontal: 60,
-                      ),
-                      child: Text(
-                        "Transfer",
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
+                  Button(
+                    text: "Transfer",
+                    textColor: Colors.black,
+                    bgColor: Color(0xFFF1B33B),
                   ),
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF1F2123),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(45),
-                      ),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 25,
-                        horizontal: 60,
-                      ),
-                      child: Text(
-                        "Request",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                  )
+                  Button(
+                    text: "Request",
+                    textColor: Colors.white,
+                    bgColor: Color(0xFF1F2123),
+                  ),
                 ],
               ),
             ],
