@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:webtoonapp/models/webtoon.dart';
+import 'package:webtoonapp/models/webtoon_model.dart';
 
 class ApiService {
   static const String baseUrl =
