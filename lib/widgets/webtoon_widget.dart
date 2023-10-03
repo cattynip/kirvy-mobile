@@ -31,21 +31,24 @@ class WebtoonWidget extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(20),
-            child: Container(
-              width: 250,
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 10,
-                    offset: const Offset(0, 0),
-                    color: Colors.black.withOpacity(0.6),
-                  )
-                ],
-              ),
-              child: Image.network(
-                webtoonThumb,
+            child: Hero(
+              tag: webtoonId,
+              child: Container(
+                width: 250,
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 10,
+                      offset: const Offset(0, 0),
+                      color: Colors.black.withOpacity(0.6),
+                    )
+                  ],
+                ),
+                child: Image.network(
+                  webtoonThumb,
+                ),
               ),
             ),
           ),
