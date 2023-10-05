@@ -54,8 +54,7 @@ class ApiService {
 
     final bool isHttpRequestSuccessful = response.statusCode == 200;
     if (isHttpRequestSuccessful) {
-      final List<Map<String, dynamic>> decodedWebtoonEpisodes =
-          jsonDecode(response.body);
+      final List<dynamic> decodedWebtoonEpisodes = jsonDecode(response.body);
       final List<WebtoonEpisodeModel> webtoonEpisodesInstances = [];
 
       for (Map<String, dynamic> webtoonEpisode in decodedWebtoonEpisodes) {

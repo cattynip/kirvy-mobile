@@ -35,11 +35,11 @@ class Home extends StatelessWidget {
                 Expanded(child: makeList(snapshot)),
               ],
             );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
           }
+
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         },
       ),
     );

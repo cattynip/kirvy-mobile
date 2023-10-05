@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:webtoonapp/models/webtoon_detail_model.dart';
 import 'package:webtoonapp/models/webtooon_episodes_model.dart';
@@ -43,37 +45,74 @@ class _DetailScreenState extends State<DetailScreen> {
         foregroundColor: Colors.green,
         elevation: 1,
       ),
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 50,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Hero(
-                tag: widget.id,
-                child: Container(
-                  width: 250,
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 10,
-                        offset: const Offset(0, 0),
-                        color: Colors.black.withOpacity(0.6),
-                      )
-                    ],
-                  ),
-                  child: Image.network(
-                    widget.thumb,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Hero(
+                  tag: widget.id,
+                  child: Container(
+                    width: 250,
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 10,
+                          offset: const Offset(0, 0),
+                          color: Colors.black.withOpacity(0.6),
+                        )
+                      ],
+                    ),
+                    child: Image.network(
+                      widget.thumb,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            FutureBuilder(
+              future: webtoon,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Column(
+                    children: [
+                      Text(
+                        snapshot.data!.title,
+                        style: const TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        snapshot.data!.about,
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text("${snapshot.data!.genre} / ${snapshot.data!.age}")
+                    ],
+                  );
+                }
+
+                return const CircularProgressIndicator();
+              },
+            )
+          ],
+        ),
       ),
     );
   }
