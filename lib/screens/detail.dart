@@ -1,9 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:webtoonapp/models/webtoon_detail_model.dart';
 import 'package:webtoonapp/models/webtooon_episodes_model.dart';
 import 'package:webtoonapp/services/api.dart';
+import 'package:webtoonapp/widgets/episode_button_widget.dart';
 
 class DetailScreen extends StatefulWidget {
   final String title, thumb, id;
@@ -148,54 +147,10 @@ class _DetailScreenState extends State<DetailScreen> {
                                       ),
                                       for (var episode
                                           in episodesSnapshot.data!)
-                                        Column(
-                                          children: [
-                                            Container(
-                                              padding: const EdgeInsets.only(
-                                                left: 10,
-                                              ),
-                                              width: double.infinity,
-                                              decoration: BoxDecoration(
-                                                color: Colors.green.shade600,
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.black
-                                                        .withOpacity(0.7),
-                                                    offset: const Offset(0, 0),
-                                                    spreadRadius: 0.01,
-                                                    blurRadius: 4,
-                                                  )
-                                                ],
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    episode.title,
-                                                    style: const TextStyle(
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                  IconButton(
-                                                    onPressed: () {},
-                                                    color: Colors.white,
-                                                    iconSize: 20,
-                                                    icon: const Icon(
-                                                      Icons
-                                                          .keyboard_arrow_right_outlined,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                          ],
+                                        EpisodeButtonWidget(
+                                          episodeId: episode.id,
+                                          episodeTitle: episode.title,
+                                          webtoonId: widget.id,
                                         ),
                                       const SizedBox(
                                         height: 20,
