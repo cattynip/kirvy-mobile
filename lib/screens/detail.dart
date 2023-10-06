@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webtoonapp/models/webtoon_detail_model.dart';
 import 'package:webtoonapp/models/webtooon_episodes_model.dart';
 import 'package:webtoonapp/services/api.dart';
@@ -19,14 +20,51 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-  late Future<WebtoonDetailModel> webtoon;
-  late Future<List<WebtoonEpisodeModel>> webtoonEpisodes;
+  late final Future<WebtoonDetailModel> webtoon;
+  late final Future<List<WebtoonEpisodeModel>> webtoonEpisodes;
+  late final SharedPreferences prefs;
+  bool isLiked = false;
+
+  Future initPrefs() async {
+    prefs = await SharedPreferences.getInstance();
+    final likedWebtoons = prefs.getStringList("likedWebtoons");
+
+    if (likedWebtoons != null) {
+      if (likedWebtoons.contains(widget.id) == true) {
+        setState(() {
+          isLiked = true;
+        });
+      }
+    } else {
+      await prefs.setStringList("likedWebtoons", []);
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     webtoon = ApiService.getToonsById(widget.id);
     webtoonEpisodes = ApiService.getToonsEpisodesById(widget.id);
+    initPrefs();
+  }
+
+  void toggleFavourite() async {
+    final List<String>? defaultValue = prefs.getStringList("likedWebtoons");
+
+    final bool isDefaultValueChangable = defaultValue != null;
+    if (isDefaultValueChangable) {
+      final List<String> changedValue = defaultValue;
+      if (isLiked) {
+        changedValue.remove(widget.id);
+      } else {
+        changedValue.add(widget.id);
+      }
+      setState(() {
+        isLiked = !isLiked;
+      });
+
+      prefs.setStringList("likedWebtoons", changedValue);
+    }
   }
 
   @override
@@ -40,6 +78,16 @@ class _DetailScreenState extends State<DetailScreen> {
             fontSize: 23,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: toggleFavourite,
+            icon: Icon(
+              isLiked == true
+                  ? Icons.favorite_sharp
+                  : Icons.favorite_outline_sharp,
+            ),
+          )
+        ],
         backgroundColor: Colors.white,
         foregroundColor: Colors.green,
         elevation: 1,
