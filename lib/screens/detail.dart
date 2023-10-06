@@ -45,73 +45,135 @@ class _DetailScreenState extends State<DetailScreen> {
         foregroundColor: Colors.green,
         elevation: 1,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Hero(
-                  tag: widget.id,
-                  child: Container(
-                    width: 250,
-                    clipBehavior: Clip.hardEdge,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 10,
-                          offset: const Offset(0, 0),
-                          color: Colors.black.withOpacity(0.6),
-                        )
-                      ],
-                    ),
-                    child: Image.network(
-                      widget.thumb,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Hero(
+                    tag: widget.id,
+                    child: Container(
+                      width: 250,
+                      clipBehavior: Clip.hardEdge,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 10,
+                            offset: const Offset(0, 0),
+                            color: Colors.black.withOpacity(0.6),
+                          )
+                        ],
+                      ),
+                      child: Image.network(
+                        widget.thumb,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            FutureBuilder(
-              future: webtoon,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Column(
-                    children: [
-                      Text(
-                        snapshot.data!.title,
-                        style: const TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w500,
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              FutureBuilder(
+                future: webtoon,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Column(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            const Text(
+                              "About",
+                              style: TextStyle(
+                                fontSize: 21,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              snapshot.data!.about,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "${snapshot.data!.genre} / ${snapshot.data!.age}",
+                            )
+                          ],
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        snapshot.data!.about,
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text("${snapshot.data!.genre} / ${snapshot.data!.age}")
-                    ],
-                  );
-                }
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 0.3,
+                          decoration: const BoxDecoration(
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            const Text(
+                              "Episodes",
+                              style: TextStyle(
+                                fontSize: 21,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            FutureBuilder(
+                              future: webtoonEpisodes,
+                              builder: (context, episodesSnapshot) {
+                                if (episodesSnapshot.hasData) {
+                                  return Column(
+                                    children: [
+                                      Expanded(
+                                        child: SizedBox(
+                                          height: 200,
+                                          child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount:
+                                                episodesSnapshot.data!.length,
+                                            itemBuilder: (context, index) {
+                                              return const Text("safjklafj");
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }
 
-                return const CircularProgressIndicator();
-              },
-            )
-          ],
+                                return const CircularProgressIndicator();
+                              },
+                            )
+                          ],
+                        )
+                      ],
+                    );
+                  }
+
+                  return const CircularProgressIndicator();
+                },
+              )
+            ],
+          ),
         ),
       ),
     );
