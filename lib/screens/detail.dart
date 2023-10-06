@@ -135,7 +135,7 @@ class _DetailScreenState extends State<DetailScreen> {
                               ),
                             ),
                             const SizedBox(
-                              height: 5,
+                              height: 10,
                             ),
                             FutureBuilder(
                               future: webtoonEpisodes,
@@ -143,24 +143,68 @@ class _DetailScreenState extends State<DetailScreen> {
                                 if (episodesSnapshot.hasData) {
                                   return Column(
                                     children: [
-                                      Expanded(
-                                        child: SizedBox(
-                                          height: 200,
-                                          child: ListView.builder(
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount:
-                                                episodesSnapshot.data!.length,
-                                            itemBuilder: (context, index) {
-                                              return const Text("safjklafj");
-                                            },
-                                          ),
+                                      const SizedBox(
+                                        height: 3,
+                                      ),
+                                      for (var episode
+                                          in episodesSnapshot.data!)
+                                        Column(
+                                          children: [
+                                            Container(
+                                              padding: const EdgeInsets.only(
+                                                left: 10,
+                                              ),
+                                              width: double.infinity,
+                                              decoration: BoxDecoration(
+                                                color: Colors.green.shade600,
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.black
+                                                        .withOpacity(0.7),
+                                                    offset: const Offset(0, 0),
+                                                    spreadRadius: 0.01,
+                                                    blurRadius: 4,
+                                                  )
+                                                ],
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    episode.title,
+                                                    style: const TextStyle(
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                  IconButton(
+                                                    onPressed: () {},
+                                                    color: Colors.white,
+                                                    iconSize: 20,
+                                                    icon: const Icon(
+                                                      Icons
+                                                          .keyboard_arrow_right_outlined,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                          ],
                                         ),
+                                      const SizedBox(
+                                        height: 20,
                                       ),
                                     ],
                                   );
                                 }
 
-                                return const CircularProgressIndicator();
+                                return Container();
                               },
                             )
                           ],
